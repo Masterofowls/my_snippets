@@ -1,0 +1,127 @@
+{
+  "Default React component": {
+    "prefix": "comp",
+    "body": [
+      "export default function ${1:Char}() {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a default-exported React component"
+  },
+  "Named arrow React component": {
+    "prefix": "comp-arrow",
+    "body": [
+      "export const ${1:Char} = () => {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "Create a named arrow-function React component"
+  },
+  "React component with props": {
+    "prefix": "comp-props",
+    "body": [
+      "export default function ${1:Char}({ ${2:title} }) {",
+      "  return (",
+      "    <div>",
+      "      {${2:title}}",
+      "      $0",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a React component that uses a prop"
+  },
+  "Controlled form": {
+    "prefix": "form",
+    "body": [
+      "<form onSubmit={${1:handleSubmit}}>",
+      "  <input",
+      "    value={${2:newText}}",
+      "    onChange={(e) => ${3:setNewText}(e.target.value)}",
+      "    placeholder=\"${4}\"",
+      "  />",
+      "  <button type=\"submit\">${5:Submit}</button>",
+      "</form>"
+    ],
+    "description": "Create a controlled input form"
+  },
+  "Form submit handler": {
+    "prefix": "submit",
+    "body": [
+      "function ${1:handleSubmit}(e) {",
+      "  e.preventDefault();",
+      "  $0",
+      "}"
+    ],
+    "description": "Create a form submit handler"
+  },
+  "useState hook": {
+    "prefix": "state",
+    "body": [
+      "const [${1:value}, set${2:Value}] = useState(${3:initialValue});"
+    ],
+    "description": "Create a useState declaration (add a useState import if needed)"
+  },
+  "useEffect hook": {
+    "prefix": "effect",
+    "body": [
+      "useEffect(() => {",
+      "  $0",
+      "}, [${1}]);"
+    ],
+    "description": "Create a useEffect hook (add a useEffect import if needed)"
+  },
+  "useRef hook": {
+    "prefix": "ref",
+    "body": [
+      "const ${1:ref} = useRef(${2:null});"
+    ],
+    "description": "Create a useRef declaration (add a useRef import if needed)"
+  },
+  "useMemo hook": {
+    "prefix": "memo",
+    "body": [
+      "const ${1:value} = useMemo(() => {",
+      "  return ${2:expression};",
+      "}, [${3}]);"
+    ],
+    "description": "Create a useMemo hook (add a useMemo import if needed)"
+  },
+  "Render array with map": {
+    "prefix": "map",
+    "body": [
+      "{${1:items}.map((${2:item}) => (",
+      "  <div key={${2:item}.id}>{${2:item}.name}</div>",
+      "))}"
+    ],
+    "description": "Render an array of items with map"
+  },
+  "Conditional render": {
+    "prefix": "conditional",
+    "body": [
+      "{${1:condition} && (",
+      "  <div>",
+      "    $0",
+      "  </div>",
+      ")}"
+    ],
+    "description": "Conditionally render JSX"
+  },
+  "React fragment": {
+    "prefix": "fragment",
+    "body": [
+      "<>",
+      "  $0",
+      "</>"
+    ],
+    "description": "Wrap JSX in a React fragment"
+  }
+}

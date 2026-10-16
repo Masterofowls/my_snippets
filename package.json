@@ -1,0 +1,25 @@
+{
+  "name": "my-react-snippets",
+  "displayName": "My React Snippets",
+  "description": "Useful React snippets for JavaScript and TypeScript",
+  "version": "0.0.1",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascriptreact",
+        "path": "./snippets/react.code-snippets"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/react.code-snippets"
+      }
+    ]
+  }
+}
