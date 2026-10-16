@@ -95,6 +95,94 @@
     ],
     "description": "Create a useMemo hook (add a useMemo import if needed)"
   },
+  "useCallback hook": {
+    "prefix": "callback",
+    "body": [
+      "const ${1:handleAction} = useCallback(() => {",
+      "  $0",
+      "}, [${2}]);"
+    ],
+    "description": "Create a useCallback hook (add a useCallback import if needed)"
+  },
+  "useContext hook": {
+    "prefix": "context",
+    "body": [
+      "const ${1:value} = useContext(${2:MyContext});"
+    ],
+    "description": "Read a context value (add a useContext import if needed)"
+  },
+  "Create context": {
+    "prefix": "create-context",
+    "body": [
+      "const ${1:App}Context = createContext(${2:undefined});"
+    ],
+    "description": "Create a React context (add a createContext import if needed)"
+  },
+  "Context provider": {
+    "prefix": "context-provider",
+    "body": [
+      "export function ${1:App}Provider({ children }) {",
+      "  const [${2:value}, ${3:setValue}] = useState(${4:initialValue});",
+      "",
+      "  return (",
+      "    <${1:App}Context.Provider value={{ ${2:value}, ${3:setValue} }}>",
+      "      {children}",
+      "    </${1:App}Context.Provider>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a context provider that shares state"
+  },
+  "Context access hook": {
+    "prefix": "use-context",
+    "body": [
+      "export function use${1:App}() {",
+      "  const context = useContext(${1:App}Context);",
+      "  if (context === undefined) {",
+      "    throw new Error(\"use${1:App} must be used within ${1:App}Provider\");",
+      "  }",
+      "  return context;",
+      "}"
+    ],
+    "description": "Create a custom hook that validates context usage"
+  },
+  "useReducer hook": {
+    "prefix": "reducer",
+    "body": [
+      "const [${1:state}, ${2:dispatch}] = useReducer(${3:reducer}, ${4:initialState});"
+    ],
+    "description": "Create a useReducer declaration (add a useReducer import if needed)"
+  },
+  "Reducer function": {
+    "prefix": "reducer-fn",
+    "body": [
+      "function ${1:reducer}(state, action) {",
+      "  switch (action.type) {",
+      "    case \"${2:increment}\":",
+      "      return { ...state, ${3:count}: state.${3:count} + 1 };",
+      "    default:",
+      "      return state;",
+      "  }",
+      "}"
+    ],
+    "description": "Create a reducer function with a switch statement"
+  },
+  "useId hook": {
+    "prefix": "id",
+    "body": [
+      "const ${1:id} = useId();"
+    ],
+    "description": "Create a unique ID with useId (add a useId import if needed)"
+  },
+  "Custom hook": {
+    "prefix": "custom-hook",
+    "body": [
+      "function ${1:useCustomHook}(${2}) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Create a custom React hook"
+  },
   "Render array with map": {
     "prefix": "map",
     "body": [
@@ -103,6 +191,233 @@
       "))}"
     ],
     "description": "Render an array of items with map"
+  },
+  "Keyed list item": {
+    "prefix": "li-key",
+    "body": [
+      "<li key={${1:item}.id}>${2:${1:item}.name}</li>"
+    ],
+    "description": "Create a list item with a stable key"
+  },
+  "Map array to keyed list items": {
+    "prefix": "map-li",
+    "body": [
+      "<ul>",
+      "  {${1:items}.map((${2:item}) => (",
+      "    <li key={${2:item}.id}>{${2:item}.name}</li>",
+      "  ))}",
+      "</ul>"
+    ],
+    "description": "Render an array as list items with stable keys"
+  },
+  "Button": {
+    "prefix": "button",
+    "body": [
+      "<button type=\"${1:button}\" onClick={${2:handleClick}}>",
+      "  ${3:Click me}",
+      "</button>"
+    ],
+    "description": "Create a button with an explicit type and click handler"
+  },
+  "Button click handler": {
+    "prefix": "click",
+    "body": [
+      "function ${1:handleClick}() {",
+      "  $0",
+      "}"
+    ],
+    "description": "Create a button click handler"
+  },
+  "Controlled text input": {
+    "prefix": "input",
+    "body": [
+      "<input",
+      "  type=\"text\"",
+      "  value={${1:value}}",
+      "  onChange={(e) => ${2:setValue}(e.target.value)}",
+      "  placeholder=\"${3}\"",
+      "/>"
+    ],
+    "description": "Create a controlled text input"
+  },
+  "Controlled textarea": {
+    "prefix": "textarea",
+    "body": [
+      "<textarea",
+      "  value={${1:value}}",
+      "  onChange={(e) => ${2:setValue}(e.target.value)}",
+      "  placeholder=\"${3}\"",
+      "/>"
+    ],
+    "description": "Create a controlled textarea"
+  },
+  "Controlled checkbox": {
+    "prefix": "checkbox",
+    "body": [
+      "<input",
+      "  type=\"checkbox\"",
+      "  checked={${1:checked}}",
+      "  onChange={(e) => ${2:setChecked}(e.target.checked)}",
+      "/>"
+    ],
+    "description": "Create a controlled checkbox"
+  },
+  "Controlled select": {
+    "prefix": "select",
+    "body": [
+      "<select value={${1:value}} onChange={(e) => ${2:setValue}(e.target.value)}>",
+      "  <option value=\"\">${3:Choose an option}</option>",
+      "  <option value=\"${4:option}\">${5:Option}</option>",
+      "</select>"
+    ],
+    "description": "Create a controlled select element"
+  },
+  "Effect with cleanup": {
+    "prefix": "effect-cleanup",
+    "body": [
+      "useEffect(() => {",
+      "  ${1:const subscription = subscribe();}",
+      "",
+      "  return () => {",
+      "    ${2:subscription.unsubscribe()};",
+      "  };",
+      "}, [${3}]);"
+    ],
+    "description": "Create a useEffect hook with cleanup"
+  },
+  "Async function": {
+    "prefix": "async",
+    "body": [
+      "async function ${1:loadData}(${2}) {",
+      "  try {",
+      "    $0",
+      "  } catch (error) {",
+      "    console.error(\"${3:Operation failed}\", error);",
+      "    throw error;",
+      "  }",
+      "}"
+    ],
+    "description": "Create an async function with explicit error handling"
+  },
+  "Async event handler": {
+    "prefix": "async-handler",
+    "body": [
+      "async function ${1:handleSubmit}(event) {",
+      "  event.preventDefault();",
+      "  try {",
+      "    $0",
+      "  } catch (error) {",
+      "    console.error(\"${2:Request failed}\", error);",
+      "  }",
+      "}"
+    ],
+    "description": "Create an async form or event handler with error handling"
+  },
+  "Fetch JSON": {
+    "prefix": "fetch-json",
+    "body": [
+      "const response = await fetch(${1:url});",
+      "if (!response.ok) {",
+      "  throw new Error(\"Request failed: \" + response.status);",
+      "}",
+      "const ${2:data} = await response.json();"
+    ],
+    "description": "Fetch JSON and throw for unsuccessful HTTP responses"
+  },
+  "Fetch data in effect": {
+    "prefix": "fetch-effect",
+    "body": [
+      "useEffect(() => {",
+      "  const controller = new AbortController();",
+      "",
+      "  async function loadData() {",
+      "    try {",
+      "      setLoading(true);",
+      "      const response = await fetch(${1:url}, { signal: controller.signal });",
+      "      if (!response.ok) {",
+      "        throw new Error(\"Request failed: \" + response.status);",
+      "      }",
+      "      const result = await response.json();",
+      "      set${2:Data}(result);",
+      "    } catch (error) {",
+      "      if (!controller.signal.aborted) {",
+      "        set${3:Error}(error);",
+      "      }",
+      "    } finally {",
+      "      if (!controller.signal.aborted) {",
+      "        setLoading(false);",
+      "      }",
+      "    }",
+      "  }",
+      "",
+      "  loadData();",
+      "  return () => controller.abort();",
+      "}, [${4}]);"
+    ],
+    "description": "Fetch JSON in an effect with abort cleanup and loading/error state"
+  },
+  "Read from localStorage": {
+    "prefix": "storage-read",
+    "body": [
+      "const ${1:storedValue} = window.localStorage.getItem(\"${2:key}\");",
+      "const ${3:value} = ${1:storedValue} === null ? ${4:defaultValue} : JSON.parse(${1:storedValue});"
+    ],
+    "description": "Read and parse a value from browser localStorage"
+  },
+  "Write to localStorage": {
+    "prefix": "storage-write",
+    "body": [
+      "window.localStorage.setItem(\"${1:key}\", JSON.stringify(${2:value}));"
+    ],
+    "description": "Serialize and save a value to browser localStorage"
+  },
+  "Persist state to localStorage": {
+    "prefix": "storage-effect",
+    "body": [
+      "useEffect(() => {",
+      "  window.localStorage.setItem(\"${1:key}\", JSON.stringify(${2:value}));",
+      "}, [${2:value}]);"
+    ],
+    "description": "Persist state changes to browser localStorage"
+  },
+  "State backed by localStorage": {
+    "prefix": "storage-state",
+    "body": [
+      "const [${1:value}, ${2:setValue}] = useState(() => {",
+      "  const storedValue = window.localStorage.getItem(\"${3:key}\");",
+      "  return storedValue === null ? ${4:initialValue} : JSON.parse(storedValue);",
+      "});",
+      "",
+      "useEffect(() => {",
+      "  window.localStorage.setItem(\"${3:key}\", JSON.stringify(${1:value}));",
+      "}, [${1:value}]);"
+    ],
+    "description": "Initialize state from localStorage and persist updates (browser-only)"
+  },
+  "Loading state": {
+    "prefix": "loading",
+    "body": [
+      "{${1:isLoading} ? <p>Loading...</p> : ${2:content}}"
+    ],
+    "description": "Render a loading message or content"
+  },
+  "Error state": {
+    "prefix": "error-state",
+    "body": [
+      "{${1:error} && <p role=\"alert\">{${1:error}}</p>}"
+    ],
+    "description": "Render an accessible error message when an error exists"
+  },
+  "Ternary render": {
+    "prefix": "ternary",
+    "body": [
+      "{${1:condition} ? (",
+      "  ${2:<div>When true</div>}",
+      ") : (",
+      "  ${3:<div>When false</div>}",
+      ")}"
+    ],
+    "description": "Render one of two JSX branches"
   },
   "Conditional render": {
     "prefix": "conditional",
@@ -123,5 +438,19 @@
       "</>"
     ],
     "description": "Wrap JSX in a React fragment"
+  },
+  "Class name": {
+    "prefix": "class",
+    "body": [
+      "className=\"${1}\""
+    ],
+    "description": "Add a className attribute to a JSX element"
+  },
+  "Accessible image": {
+    "prefix": "image",
+    "body": [
+      "<img src=\"${1}\" alt=\"${2:Describe the image}\" />"
+    ],
+    "description": "Create an image with alternative text"
   }
 }
