@@ -452,5 +452,440 @@
       "<img src=\"${1}\" alt=\"${2:Describe the image}\" />"
     ],
     "description": "Create an image with alternative text"
+  },
+  "Redux slice": {
+    "prefix": "rtk-slice",
+    "body": [
+      "import { createSlice } from \"@reduxjs/toolkit\";",
+      "",
+      "const initialState = {",
+      "  ${1:value}: ${2:0},",
+      "};",
+      "",
+      "const ${3:counter}Slice = createSlice({",
+      "  name: \"${3:counter}\",",
+      "  initialState,",
+      "  reducers: {",
+      "    ${4:increment}(state) {",
+      "      state.${1:value} += 1;",
+      "    },",
+      "    ${5:setValue}(state, action) {",
+      "      state.${1:value} = action.payload;",
+      "    },",
+      "  },",
+      "});",
+      "",
+      "export const { ${4:increment}, ${5:setValue} } = ${3:counter}Slice.actions;",
+      "export default ${3:counter}Slice.reducer;"
+    ],
+    "description": "Create a Redux Toolkit slice"
+  },
+  "Redux store": {
+    "prefix": "rtk-store",
+    "body": [
+      "import { configureStore } from \"@reduxjs/toolkit\";",
+      "import ${1:counter}Reducer from \"./${1:counter}Slice\";",
+      "",
+      "export const store = configureStore({",
+      "  reducer: {",
+      "    ${1:counter}: ${1:counter}Reducer,",
+      "  },",
+      "});"
+    ],
+    "description": "Configure a Redux Toolkit store"
+  },
+  "Redux provider": {
+    "prefix": "redux-provider",
+    "body": [
+      "<Provider store={${1:store}}>",
+      "  $0",
+      "</Provider>"
+    ],
+    "description": "Wrap components in the React-Redux Provider"
+  },
+  "Redux useSelector": {
+    "prefix": "selector",
+    "body": [
+      "const ${1:value} = useSelector((state) => state.${2:slice}.${3:value});"
+    ],
+    "description": "Read state with useSelector (import from react-redux)"
+  },
+  "Redux useDispatch": {
+    "prefix": "dispatch",
+    "body": [
+      "const dispatch = useDispatch();",
+      "",
+      "dispatch(${1:action}(${2}));"
+    ],
+    "description": "Get dispatch and dispatch an action (import from react-redux)"
+  },
+  "Redux async thunk": {
+    "prefix": "rtk-thunk",
+    "body": [
+      "export const ${1:fetchItems} = createAsyncThunk(",
+      "  \"${2:items}/${1:fetchItems}\",",
+      "  async (${3:arg}, { rejectWithValue }) => {",
+      "    try {",
+      "      const response = await fetch(${4:url});",
+      "      if (!response.ok) {",
+      "        throw new Error(\"Request failed: \" + response.status);",
+      "      }",
+      "      return await response.json();",
+      "    } catch (error) {",
+      "      return rejectWithValue(error.message);",
+      "    }",
+      "  }",
+      ");"
+    ],
+    "description": "Create an async thunk with error handling"
+  },
+  "Redux extraReducers": {
+    "prefix": "rtk-extra",
+    "body": [
+      "extraReducers: (builder) => {",
+      "  builder",
+      "    .addCase(${1:fetchItems}.pending, (state) => {",
+      "      state.status = \"loading\";",
+      "    })",
+      "    .addCase(${1:fetchItems}.fulfilled, (state, action) => {",
+      "      state.status = \"succeeded\";",
+      "      state.${2:items} = action.payload;",
+      "    })",
+      "    .addCase(${1:fetchItems}.rejected, (state, action) => {",
+      "      state.status = \"failed\";",
+      "      state.error = action.payload;",
+      "    });",
+      "},"
+    ],
+    "description": "Handle thunk states in a slice"
+  },
+  "RTK Query API": {
+    "prefix": "rtk-query",
+    "body": [
+      "import { createApi, fetchBaseQuery } from \"@reduxjs/toolkit/query/react\";",
+      "",
+      "export const ${1:api} = createApi({",
+      "  reducerPath: \"${1:api}\",",
+      "  baseQuery: fetchBaseQuery({ baseUrl: \"${2:/api}\" }),",
+      "  endpoints: (builder) => ({",
+      "    ${3:getItems}: builder.query({",
+      "      query: () => \"${4:/items}\",",
+      "    }),",
+      "  }),",
+      "});",
+      "",
+      "export const { use${5:GetItems}Query } = ${1:api};"
+    ],
+    "description": "Create an RTK Query API service"
+  },
+  "Query selector": {
+    "prefix": "dom-qs",
+    "body": [
+      "const ${1:element} = document.querySelector(\"${2:.selector}\");",
+      "if (!${1:element}) return;"
+    ],
+    "description": "Select one DOM element and guard against null"
+  },
+  "Query selector all": {
+    "prefix": "dom-qsa",
+    "body": [
+      "const ${1:elements} = document.querySelectorAll(\"${2:.selector}\");",
+      "${1:elements}.forEach((element) => {",
+      "  $0",
+      "});"
+    ],
+    "description": "Select and loop over DOM elements"
+  },
+  "Get element by id": {
+    "prefix": "dom-id",
+    "body": [
+      "const ${1:element} = document.getElementById(\"${2:id}\");",
+      "if (!${1:element}) return;"
+    ],
+    "description": "Get a DOM element by id and guard against null"
+  },
+  "Window event listener effect": {
+    "prefix": "dom-listener",
+    "body": [
+      "useEffect(() => {",
+      "  function ${1:handleEvent}(event) {",
+      "    $0",
+      "  }",
+      "",
+      "  window.addEventListener(\"${2:resize}\", ${1:handleEvent});",
+      "  return () => window.removeEventListener(\"${2:resize}\", ${1:handleEvent});",
+      "}, []);"
+    ],
+    "description": "Add and clean up a window event listener in an effect"
+  },
+  "Add event listener": {
+    "prefix": "dom-on",
+    "body": [
+      "${1:element}.addEventListener(\"${2:click}\", (event) => {",
+      "  $0",
+      "});"
+    ],
+    "description": "Add a DOM event listener"
+  },
+  "Create DOM element": {
+    "prefix": "dom-create",
+    "body": [
+      "const ${1:element} = document.createElement(\"${2:div}\");",
+      "${1:element}.textContent = ${3:\"\"};",
+      "${4:parent}.append(${1:element});"
+    ],
+    "description": "Create and append a DOM element"
+  },
+  "Toggle class": {
+    "prefix": "dom-class",
+    "body": [
+      "${1:element}.classList.${2|toggle,add,remove,contains|}(\"${3:active}\");"
+    ],
+    "description": "Use classList on a DOM element"
+  },
+  "Click outside hook": {
+    "prefix": "dom-outside",
+    "body": [
+      "useEffect(() => {",
+      "  function handleClick(event) {",
+      "    if (${1:ref}.current && !${1:ref}.current.contains(event.target)) {",
+      "      ${2:onClose}();",
+      "    }",
+      "  }",
+      "",
+      "  document.addEventListener(\"mousedown\", handleClick);",
+      "  return () => document.removeEventListener(\"mousedown\", handleClick);",
+      "}, [${1:ref}, ${2:onClose}]);"
+    ],
+    "description": "Detect clicks outside a ref element"
+  },
+  "Focus element with ref": {
+    "prefix": "dom-focus",
+    "body": [
+      "useEffect(() => {",
+      "  ${1:inputRef}.current?.focus();",
+      "}, []);"
+    ],
+    "description": "Focus a ref element on mount"
+  },
+  "React DOM createRoot": {
+    "prefix": "rd-root",
+    "body": [
+      "import { StrictMode } from \"react\";",
+      "import { createRoot } from \"react-dom/client\";",
+      "import ${1:App} from \"./${1:App}\";",
+      "",
+      "createRoot(document.getElementById(\"root\")).render(",
+      "  <StrictMode>",
+      "    <${1:App} />",
+      "  </StrictMode>",
+      ");"
+    ],
+    "description": "Render the app with React DOM createRoot"
+  },
+  "React DOM hydrateRoot": {
+    "prefix": "rd-hydrate",
+    "body": [
+      "import { StrictMode } from \"react\";",
+      "import { hydrateRoot } from \"react-dom/client\";",
+      "import ${1:App} from \"./${1:App}\";",
+      "",
+      "hydrateRoot(",
+      "  document.getElementById(\"root\"),",
+      "  <StrictMode>",
+      "    <${1:App} />",
+      "  </StrictMode>",
+      ");"
+    ],
+    "description": "Hydrate server-rendered markup"
+  },
+  "React DOM portal": {
+    "prefix": "rd-portal",
+    "body": [
+      "createPortal(",
+      "  ${1:<div>Portal content</div>},",
+      "  ${2:document.body}",
+      ")"
+    ],
+    "description": "Render children into another DOM node (import createPortal from react-dom)"
+  },
+  "React DOM modal portal": {
+    "prefix": "rd-modal",
+    "body": [
+      "export default function ${1:Modal}({ open, onClose, children }) {",
+      "  if (!open) return null;",
+      "",
+      "  return createPortal(",
+      "    <div role=\"dialog\" aria-modal=\"true\">",
+      "      <button type=\"button\" onClick={onClose}>Close</button>",
+      "      {children}",
+      "    </div>,",
+      "    document.body",
+      "  );",
+      "}"
+    ],
+    "description": "Create a modal rendered through a portal"
+  },
+  "React DOM flushSync": {
+    "prefix": "rd-flush",
+    "body": [
+      "flushSync(() => {",
+      "  ${1:setValue}(${2:nextValue});",
+      "});"
+    ],
+    "description": "Force a synchronous update (import flushSync from react-dom)"
+  },
+  "Router browser router": {
+    "prefix": "rr-router",
+    "body": [
+      "const router = createBrowserRouter([",
+      "  {",
+      "    path: \"${1:/}\",",
+      "    element: <${2:Layout} />,",
+      "    children: [",
+      "      { index: true, element: <${3:Home} /> },",
+      "      { path: \"${4:about}\", element: <${5:About} /> },",
+      "    ],",
+      "  },",
+      "]);"
+    ],
+    "description": "Create routes with createBrowserRouter"
+  },
+  "Router provider": {
+    "prefix": "rr-provider",
+    "body": [
+      "<RouterProvider router={${1:router}} />"
+    ],
+    "description": "Render a data router"
+  },
+  "Router BrowserRouter": {
+    "prefix": "rr-browser",
+    "body": [
+      "<BrowserRouter>",
+      "  <Routes>",
+      "    <Route path=\"${1:/}\" element={<${2:Home} />} />",
+      "    <Route path=\"*\" element={<${3:NotFound} />} />",
+      "  </Routes>",
+      "</BrowserRouter>"
+    ],
+    "description": "Declare routes with BrowserRouter"
+  },
+  "Router route": {
+    "prefix": "rr-route",
+    "body": [
+      "<Route path=\"${1:/path}\" element={<${2:Page} />} />"
+    ],
+    "description": "Add a Route"
+  },
+  "Router link": {
+    "prefix": "rr-link",
+    "body": [
+      "<Link to=\"${1:/}\">${2:Home}</Link>"
+    ],
+    "description": "Create a router Link"
+  },
+  "Router NavLink": {
+    "prefix": "rr-navlink",
+    "body": [
+      "<NavLink to=\"${1:/}\" className={({ isActive }) => (isActive ? \"${2:active}\" : \"\")}>",
+      "  ${3:Home}",
+      "</NavLink>"
+    ],
+    "description": "Create a NavLink with active styling"
+  },
+  "Router outlet layout": {
+    "prefix": "rr-layout",
+    "body": [
+      "export default function ${1:Layout}() {",
+      "  return (",
+      "    <div>",
+      "      <nav>$0</nav>",
+      "      <main>",
+      "        <Outlet />",
+      "      </main>",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a layout route with Outlet"
+  },
+  "Router useNavigate": {
+    "prefix": "rr-navigate",
+    "body": [
+      "const navigate = useNavigate();",
+      "",
+      "navigate(\"${1:/}\");"
+    ],
+    "description": "Navigate programmatically"
+  },
+  "Router useParams": {
+    "prefix": "rr-params",
+    "body": [
+      "const { ${1:id} } = useParams();"
+    ],
+    "description": "Read route params"
+  },
+  "Router useSearchParams": {
+    "prefix": "rr-search",
+    "body": [
+      "const [searchParams, setSearchParams] = useSearchParams();",
+      "const ${1:query} = searchParams.get(\"${2:q}\") ?? \"\";"
+    ],
+    "description": "Read URL search params"
+  },
+  "Router useLocation": {
+    "prefix": "rr-location",
+    "body": [
+      "const location = useLocation();"
+    ],
+    "description": "Read the current location"
+  },
+  "Router redirect": {
+    "prefix": "rr-redirect",
+    "body": [
+      "<Navigate to=\"${1:/login}\" replace />"
+    ],
+    "description": "Redirect with Navigate"
+  },
+  "Router protected route": {
+    "prefix": "rr-protected",
+    "body": [
+      "export default function ${1:ProtectedRoute}({ isAllowed, redirectTo = \"/login\" }) {",
+      "  return isAllowed ? <Outlet /> : <Navigate to={redirectTo} replace />;",
+      "}"
+    ],
+    "description": "Create a route guard"
+  },
+  "Router loader": {
+    "prefix": "rr-loader",
+    "body": [
+      "export async function ${1:loader}({ params, request }) {",
+      "  const response = await fetch(${2:url}, { signal: request.signal });",
+      "  if (!response.ok) {",
+      "    throw new Response(\"Not found\", { status: response.status });",
+      "  }",
+      "  return response.json();",
+      "}"
+    ],
+    "description": "Create a route loader"
+  },
+  "Router action": {
+    "prefix": "rr-action",
+    "body": [
+      "export async function ${1:action}({ request }) {",
+      "  const formData = await request.formData();",
+      "  const ${2:value} = formData.get(\"${3:name}\");",
+      "  $0",
+      "  return redirect(\"${4:/}\");",
+      "}"
+    ],
+    "description": "Create a route action"
+  },
+  "Router useLoaderData": {
+    "prefix": "rr-data",
+    "body": [
+      "const ${1:data} = useLoaderData();"
+    ],
+    "description": "Read loader data"
   }
 }

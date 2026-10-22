@@ -58,3 +58,41 @@ Hook snippets insert the hook call only. Add the corresponding React hook import
 | `fragment` | React fragment |
 | `class` | JSX `className` attribute |
 | `image` | Image with alternative text |
+| `rtk-slice` | Redux Toolkit slice |
+| `rtk-store` | Redux Toolkit store |
+| `redux-provider` | React-Redux Provider |
+| `selector` | `useSelector` |
+| `dispatch` | `useDispatch` and dispatch |
+| `rtk-thunk` | `createAsyncThunk` |
+| `rtk-extra` | Slice `extraReducers` for a thunk |
+| `rtk-query` | RTK Query API service |
+| `dom-qs` | `querySelector` with null guard |
+| `dom-qsa` | `querySelectorAll` loop |
+| `dom-id` | `getElementById` with null guard |
+| `dom-listener` | Window listener in an effect with cleanup |
+| `dom-on` | `addEventListener` |
+| `dom-create` | Create and append an element |
+| `dom-class` | `classList` operation |
+| `dom-outside` | Click-outside effect |
+| `dom-focus` | Focus a ref on mount |
+| `rd-root` | React DOM `createRoot` entry |
+| `rd-hydrate` | React DOM `hydrateRoot` entry |
+| `rd-portal` | `createPortal` |
+| `rd-modal` | Portal modal component |
+| `rd-flush` | `flushSync` |
+| `rr-router` | `createBrowserRouter` routes |
+| `rr-provider` | `RouterProvider` |
+| `rr-browser` | `BrowserRouter` with `Routes` |
+| `rr-route` | `Route` |
+| `rr-link` | `Link` |
+| `rr-navlink` | `NavLink` with active class |
+| `rr-layout` | Layout route with `Outlet` |
+| `rr-navigate` | `useNavigate` |
+| `rr-params` | `useParams` |
+| `rr-search` | `useSearchParams` |
+| `rr-location` | `useLocation` |
+| `rr-redirect` | `Navigate` redirect |
+| `rr-protected` | Protected route guard |
+| `rr-loader` | Route loader |
+| `rr-action` | Route action |
+| `rr-data` | `useLoaderData` |

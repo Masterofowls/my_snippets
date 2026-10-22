@@ -2,8 +2,23 @@
   "name": "my-react-snippets",
   "displayName": "My React Snippets",
   "description": "Useful React snippets for JavaScript and TypeScript",
-  "version": "0.0.1",
-  "publisher": "local",
+  "version": "0.0.2",
+  "publisher": "pp33q7rm2m4n6",
+  "icon": "icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Masterofowls/my_snippets"
+  },
+  "keywords": [
+    "react",
+    "snippets",
+    "redux",
+    "react-router",
+    "react-dom",
+    "jsx",
+    "tsx"
+  ],
   "engines": {
     "vscode": "^1.80.0"
   },
